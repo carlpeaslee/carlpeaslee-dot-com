@@ -1,36 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a personal blog for carl peaslee. The domain is carlpeaslee.com. It is built with nextjs, tailwindcss, shadcn, and it is hosted on vercel. 
 
-## Getting Started
+It should have the following features:
 
-First, run the development server:
+- [x] A home page a short introduct at the top and some places where I can post links
+- [x] The home page should also have a featured post and two recent posts
+- [x] There should be a nav bar at the top that has "/about", "/posts", and "/contact"
+- [x] There should be a footer with links to my social media (github, linkedin, x, bluesky, instagram, youtube)
+- [x] A '/posts' page that lists all my posts
+- [x] A '/posts/[slug]' page that displays a single post. the posts should be stored in markdown in a posts folder
+- [x] an '/about' page that displays some information about me
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The style of this blog should be minimal and clean. Use shadcn components.
