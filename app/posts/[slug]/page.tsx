@@ -11,8 +11,11 @@ export async function generateStaticParams() {
 
 export default async function PostPage({
 	params,
-}: { params: { slug: string } }) {
-	const post = getPostBySlug(params.slug)
+}: {
+	params: { slug: string }
+}) {
+	const { slug } = await params
+	const post = getPostBySlug(slug)
 
 	if (!post) {
 		notFound()
