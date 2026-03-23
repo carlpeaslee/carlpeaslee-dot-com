@@ -1,8 +1,34 @@
 ---
-title: "Hello World"
-description: "Welcome to my new blog "
-date: "2024-02-17"
+title: Hello World
+description: A first post to prove out the new static SSR, markdown, and interactive component pipeline.
+date: 2026-03-23
 featured: true
+tags:
+  - launch
+  - stack
 ---
 
-Welcome to my new blog! This is a sample post to demonstrate the blog's functionality. 
+The first job for a site like this is to stay simple without being limiting.
+
+This version is built around a static-first React Router app that prerenders the public routes at build time, then hydrates client code where it actually adds value.
+
+That means the landing page and blog posts ship as HTML, but the writing format can still host stateful React components when a post needs something more interactive than screenshots.
+
+## Why this stack
+
+- Vite keeps local development fast.
+- React Router handles SSR and route-level rendering cleanly.
+- Cloudflare is a good fit for globally cached pages and simple deploys.
+- Tailwind and shadcn keep the styling system lightweight and composable.
+
+## Embedded React in the article
+
+Here is a small interactive component rendered directly inside the post body:
+
+<SignalBench />
+
+The component above lives in the same app as the rest of the site. It is not a separate embed, and it does not need a custom markdown escape hatch.
+
+## What comes next
+
+The next pass can flesh out the actual writing archive, improve the metadata and feeds, and swap the placeholder profile links for real ones.

@@ -1,13 +1,52 @@
-This is a personal blog for carl peaslee. The domain is carlpeaslee.com. It is built with nextjs, tailwindcss, shadcn, and it is hosted on vercel. 
+# carlpeaslee.com
 
-It should have the following features:
+Personal landing page and blog for Carl Peaslee.
 
-- [x] A home page a short introduct at the top and some places where I can post links
-- [x] The home page should also have a featured post and two recent posts
-- [x] There should be a nav bar at the top that has "/about", "/posts", and "/contact"
-- [x] There should be a footer with links to my social media (github, linkedin, x, bluesky, instagram, youtube)
-- [x] A '/posts' page that lists all my posts
-- [x] A '/posts/[slug]' page that displays a single post. the posts should be stored in markdown in a posts folder
-- [x] an '/about' page that displays some information about me
+## Stack
 
-The style of this blog should be minimal and clean. Use shadcn components.
+- Vite
+- React
+- React Router framework mode
+- Cloudflare Workers
+- Tailwind CSS
+- shadcn/ui
+- PostHog
+- `just` for the command surface
+
+## Features
+
+- SSR enabled with static prerendered HTML for the public routes
+- `/blog` index route
+- `/blog/:slug` post route
+- MDX-backed posts in [`content/posts`](/work/carlpeaslee-dot-com/content/posts)
+- Interactive client-side React components embedded directly in post content
+- Cloudflare deploy flow with `preview` and `production` targets
+- Verification flow that can run against local, preview, or production environments
+
+## Commands
+
+- `just dev`: hot-reloading development server
+- `just build`: production build with prerendered pages
+- `just dev-static`: build and locally serve the static output
+- `just deploy preview`: deploy the preview worker
+- `just deploy production`: deploy the production worker
+- `just verify local`: build, serve, and verify the local site
+- `just verify preview`: verify a deployed preview URL
+- `just verify prod`: verify the production URL
+
+## Environment
+
+Build-time analytics values:
+
+- `VITE_PUBLIC_POSTHOG_KEY`
+- `VITE_PUBLIC_POSTHOG_HOST`
+
+Remote verification values:
+
+- `PREVIEW_URL`
+- `PROD_URL`
+
+## Notes
+
+- The Cloudflare compatibility date is pinned to `2026-03-17`, which matches the runtime supported by the currently installed Wrangler toolchain.
+- Profile links and copy in [`lib/site.ts`](/work/carlpeaslee-dot-com/lib/site.ts) are easy to swap as the real site content evolves.

@@ -13,10 +13,6 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # production
 /build
 
@@ -33,9 +29,10 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# vercel
-.vercel
+# framework and deploy artifacts
+/.react-router/
+/.wrangler/
+worker-configuration.d.ts
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts

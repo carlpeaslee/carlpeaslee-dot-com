@@ -1,66 +1,64 @@
-import fs from "node:fs"
-import path from "node:path"
-import matter from "gray-matter"
+import type { ComponentType, ElementType } from "react";
 
-const postsDirectory = path.join(process.cwd(), "content/posts")
+export type PostFrontmatter = {
+  title: string;
+  description: string;
+  date: string;
+  featured?: boolean;
+  tags?: string[];
+};
 
-export type Post = {
-	slug: string
-	title: string
-	description: string
-	date: string
-	featured?: boolean
-	content: string
+type PostModule = {
+  default: ComponentType<{ components?: Record<string, ElementType> }>;
+  frontmatter: PostFrontmatter;
+};
+
+export type PostSummary = {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  featured: boolean;
+  tags: string[];
+  Content: PostModule["default"];
+};
+
+const modules = import.meta.glob("../content/posts/*.mdx", {
+  eager: true,
+}) as Record<string, PostModule>;
+
+const posts = Object.entries(modules)
+  .map(([filePath, module]) => {
+    const slug = filePath.split("/").pop()?.replace(/\.mdx$/, "");
+
+    if (!slug) {
+      throw new Error(`Could not derive slug from ${filePath}`);
+    }
+
+    return {
+      slug,
+      title: module.frontmatter.title,
+      description: module.frontmatter.description,
+      date: module.frontmatter.date,
+      featured: Boolean(module.frontmatter.featured),
+      tags: module.frontmatter.tags ?? [],
+      Content: module.default,
+    } satisfies PostSummary;
+  })
+  .sort((left, right) => new Date(right.date).getTime() - new Date(left.date).getTime());
+
+export function getAllPosts() {
+  return posts;
 }
 
-export function getAllPosts(): Post[] {
-	const fileNames = fs.readdirSync(postsDirectory)
-	const allPosts = fileNames
-		.filter((fileName) => fileName.endsWith(".mdx"))
-		.map((fileName) => {
-			const slug = fileName.replace(/\.mdx$/, "")
-			const fullPath = path.join(postsDirectory, fileName)
-			const fileContents = fs.readFileSync(fullPath, "utf8")
-			const { data, content } = matter(fileContents)
-
-			return {
-				slug,
-				title: data.title,
-				description: data.description,
-				date: data.date,
-				featured: data.featured || false,
-				content,
-			}
-		})
-
-	return allPosts.sort((a, b) => (a.date < b.date ? 1 : -1))
+export function getFeaturedPost() {
+  return posts.find((post) => post.featured) ?? posts[0] ?? null;
 }
 
-export function getFeaturedPost(): Post | null {
-	const posts = getAllPosts()
-	return posts.find((post) => post.featured) || null
+export function getRecentPosts(limit = 2, omitSlug?: string) {
+  return posts.filter((post) => post.slug !== omitSlug).slice(0, limit);
 }
 
-export function getRecentPosts(count: number = 2): Post[] {
-	const posts = getAllPosts()
-	return posts.slice(0, count)
-}
-
-export function getPostBySlug(slug: string): Post | null {
-	try {
-		const fullPath = path.join(postsDirectory, `${slug}.mdx`)
-		const fileContents = fs.readFileSync(fullPath, "utf8")
-		const { data, content } = matter(fileContents)
-
-		return {
-			slug,
-			title: data.title,
-			description: data.description,
-			date: data.date,
-			featured: data.featured || false,
-			content,
-		}
-	} catch {
-		return null
-	}
+export function getPostBySlug(slug: string) {
+  return posts.find((post) => post.slug === slug) ?? null;
 }
