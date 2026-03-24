@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, NavLink } from "react-router";
+import { usePostHog } from "posthog-js/react";
 
 import { siteMeta } from "@/lib/site";
 
@@ -9,6 +10,8 @@ const navItems = [
 ];
 
 export function SiteShell({ children }: { children: ReactNode }) {
+  const posthog = usePostHog();
+
   return (
     <div className="flex min-h-[101vh] flex-col bg-background text-foreground">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
@@ -60,13 +63,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 text-xs text-muted-foreground sm:px-8">
           <p>&copy; {new Date().getFullYear()} Carl Peaslee</p>
           <div className="flex gap-3">
-            <a className="hover:text-foreground" href="https://github.com/carlpeaslee" target="_blank" rel="noopener noreferrer">
+            <a className="hover:text-foreground" href="https://github.com/carlpeaslee" target="_blank" rel="noopener noreferrer" onClick={() => posthog?.capture("footer_social_clicked", { platform: "GitHub" })}>
               GitHub
             </a>
-            <a className="hover:text-foreground" href="https://linkedin.com/in/carlpeaslee" target="_blank" rel="noopener noreferrer">
+            <a className="hover:text-foreground" href="https://linkedin.com/in/carlpeaslee" target="_blank" rel="noopener noreferrer" onClick={() => posthog?.capture("footer_social_clicked", { platform: "LinkedIn" })}>
               LinkedIn
             </a>
-            <a className="hover:text-foreground" href="https://x.com/carlpeaslee" target="_blank" rel="noopener noreferrer">
+            <a className="hover:text-foreground" href="https://x.com/carlpeaslee" target="_blank" rel="noopener noreferrer" onClick={() => posthog?.capture("footer_social_clicked", { platform: "X" })}>
               X
             </a>
           </div>

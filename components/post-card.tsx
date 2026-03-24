@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { usePostHog } from "posthog-js/react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { PostSummary } from "@/lib/posts";
@@ -11,6 +12,17 @@ export function PostCard({
   post: PostSummary;
   tone?: "default" | "feature";
 }) {
+  const posthog = usePostHog();
+
+  const handleClick = () => {
+    posthog?.capture("post_card_clicked", {
+      post_slug: post.slug,
+      post_title: post.title,
+      post_tags: post.tags,
+      featured: post.featured,
+    });
+  };
+
   return (
     <Card
       className={[
@@ -33,7 +45,7 @@ export function PostCard({
         </div>
         <div className="space-y-2">
           <CardTitle className="font-display text-3xl leading-tight">
-            <Link className="hover:underline" to={`/blog/${post.slug}`}>
+            <Link className="hover:underline" to={`/blog/${post.slug}`} onClick={handleClick}>
               {post.title}
             </Link>
           </CardTitle>
@@ -51,7 +63,7 @@ export function PostCard({
             </span>
           ))}
         </div>
-        <Link className="text-sm font-medium text-foreground underline-offset-4 hover:underline" to={`/blog/${post.slug}`}>
+        <Link className="text-sm font-medium text-foreground underline-offset-4 hover:underline" to={`/blog/${post.slug}`} onClick={handleClick}>
           Read
         </Link>
       </CardContent>

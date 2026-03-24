@@ -36,3 +36,4 @@ worker-configuration.d.ts
 
 # typescript
 *.tsbuildinfo
+.env

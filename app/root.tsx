@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "react-router";
+import posthog from "posthog-js";
 
 import { AnalyticsProvider } from "@/components/posthog-provider";
 import { SiteShell } from "@/components/site-shell";
@@ -65,6 +66,10 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (typeof window !== "undefined") {
+    posthog.captureException(error);
+  }
+
   const message = isRouteErrorResponse(error)
     ? error.status === 404
       ? "Page not found"

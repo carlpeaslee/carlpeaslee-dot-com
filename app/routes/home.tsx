@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { usePostHog } from "posthog-js/react";
 
 import { PostCard } from "@/components/post-card";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export default function Home() {
+  const posthog = usePostHog();
   const featuredPost = getFeaturedPost();
   const recentPosts = getRecentPosts(2, featuredPost?.slug);
 
@@ -35,11 +37,16 @@ export default function Home() {
           </div>
           <div className="relative mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg">
-              <Link to="/blog">Read the blog</Link>
+              <Link to="/blog" onClick={() => posthog?.capture("blog_cta_clicked")}>Read the blog</Link>
             </Button>
             {featuredPost ? (
               <Button asChild size="lg" variant="outline">
-                <Link to={`/blog/${featuredPost.slug}`}>Open featured post</Link>
+                <Link
+                  to={`/blog/${featuredPost.slug}`}
+                  onClick={() => posthog?.capture("featured_post_opened", { post_slug: featuredPost.slug, post_title: featuredPost.title })}
+                >
+                  Open featured post
+                </Link>
               </Button>
             ) : null}
           </div>
@@ -57,6 +64,7 @@ export default function Home() {
                 href={link.href}
                 rel={link.external ? "noreferrer" : undefined}
                 target={link.external ? "_blank" : undefined}
+                onClick={() => posthog?.capture("quick_link_clicked", { label: link.label, href: link.href, external: link.external })}
               >
                 <span>
                   <span className="block text-sm font-medium text-foreground">{link.label}</span>

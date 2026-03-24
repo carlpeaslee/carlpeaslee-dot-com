@@ -45,6 +45,7 @@ export function AnalyticsProvider({
         capture_pageleave: true,
         capture_pageview: false,
         person_profiles: "identified_only",
+        __add_tracing_headers: [window.location.host, "localhost"],
       });
     }
   }, [apiHost, apiKey, enabled]);
