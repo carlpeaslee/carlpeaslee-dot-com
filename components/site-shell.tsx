@@ -1,11 +1,9 @@
 import type { ReactNode } from "react";
 import { Link, NavLink } from "react-router";
 import { usePostHog } from "posthog-js/react";
-
-import { siteMeta } from "@/lib/site";
+import { Github, Linkedin, Twitter } from "lucide-react";
 
 const navItems = [
-  { label: "Home", to: "/" },
   { label: "Blog", to: "/blog" },
 ];
 
@@ -22,16 +20,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
       <header className="sticky top-0 z-20 border-b border-border/50 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-8">
-          <Link className="group inline-flex items-center gap-3" to="/">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-border/70 bg-card text-sm font-semibold text-foreground shadow-sm transition group-hover:-translate-y-0.5">
-              CP
-            </span>
-            <span>
-              <span className="block text-sm uppercase tracking-[0.3em] text-muted-foreground">
-                carlpeaslee.com
-              </span>
-              <span className="block font-display text-lg text-foreground">{siteMeta.name}</span>
-            </span>
+          <Link className="font-display text-xl text-foreground transition hover:opacity-80" to="/">
+            Carl Peaslee
           </Link>
 
           <div className="flex items-center gap-2">
@@ -62,15 +52,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <footer className="border-t border-border/50 py-4">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 text-xs text-muted-foreground sm:px-8">
           <p>&copy; {new Date().getFullYear()} Carl Peaslee</p>
-          <div className="flex gap-3">
-            <a className="hover:text-foreground" href="https://github.com/carlpeaslee" target="_blank" rel="noopener noreferrer" onClick={() => posthog?.capture("footer_social_clicked", { platform: "GitHub" })}>
-              GitHub
+          <div className="flex gap-4">
+            <a className="hover:text-foreground transition" href="https://github.com/carlpeaslee" target="_blank" rel="noopener noreferrer" aria-label="GitHub" onClick={() => posthog?.capture("footer_social_clicked", { platform: "GitHub" })}>
+              <Github size={16} />
             </a>
-            <a className="hover:text-foreground" href="https://linkedin.com/in/carlpeaslee" target="_blank" rel="noopener noreferrer" onClick={() => posthog?.capture("footer_social_clicked", { platform: "LinkedIn" })}>
-              LinkedIn
+            <a className="hover:text-foreground transition" href="https://linkedin.com/in/carlpeaslee" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" onClick={() => posthog?.capture("footer_social_clicked", { platform: "LinkedIn" })}>
+              <Linkedin size={16} />
             </a>
-            <a className="hover:text-foreground" href="https://x.com/carlpeaslee" target="_blank" rel="noopener noreferrer" onClick={() => posthog?.capture("footer_social_clicked", { platform: "X" })}>
-              X
+            <a className="hover:text-foreground transition" href="https://x.com/carlpeaslee" target="_blank" rel="noopener noreferrer" aria-label="X" onClick={() => posthog?.capture("footer_social_clicked", { platform: "X" })}>
+              <Twitter size={16} />
             </a>
           </div>
         </div>

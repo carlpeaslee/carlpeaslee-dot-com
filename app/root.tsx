@@ -24,6 +24,7 @@ export function loader() {
 }
 
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", href: "/profile.jpeg", type: "image/jpeg" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
