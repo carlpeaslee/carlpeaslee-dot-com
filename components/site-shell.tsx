@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, NavLink } from "react-router";
 
-import { Button } from "@/components/ui/button";
 import { siteMeta } from "@/lib/site";
 
 const navItems = [
@@ -11,7 +10,7 @@ const navItems = [
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="flex min-h-[101vh] flex-col bg-background text-foreground">
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute inset-x-0 top-[-8rem] h-[24rem] bg-[radial-gradient(circle_at_top,rgba(214,140,69,0.22),transparent_55%)]" />
         <div className="absolute bottom-[-10rem] left-[-8rem] h-[22rem] w-[22rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(67,95,82,0.18),transparent_70%)] blur-3xl" />
@@ -51,33 +50,24 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 </NavLink>
               ))}
             </nav>
-            <Button asChild className="rounded-full">
-              <a href="mailto:hello@carlpeaslee.com">Say hello</a>
-            </Button>
           </div>
         </div>
       </header>
 
-      {children}
+      <div className="flex-1">{children}</div>
 
-      <footer className="border-t border-border/50 py-10">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 sm:px-8 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="font-display text-2xl text-foreground">{siteMeta.name}</p>
-            <p className="mt-2 max-w-xl text-sm leading-7 text-muted-foreground">
-              Personal landing page and blog. Built with Vite, React Router, Tailwind, shadcn,
-              PostHog, and Cloudflare Workers.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-            <a className="hover:text-foreground" href="mailto:hello@carlpeaslee.com">
-              Email
+      <footer className="border-t border-border/50 py-4">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 text-xs text-muted-foreground sm:px-8">
+          <p>&copy; {new Date().getFullYear()} Carl Peaslee</p>
+          <div className="flex gap-3">
+            <a className="hover:text-foreground" href="https://github.com/carlpeaslee" target="_blank" rel="noopener noreferrer">
+              GitHub
             </a>
-            <Link className="hover:text-foreground" to="/blog">
-              Blog
-            </Link>
-            <a className="hover:text-foreground" href="/blog">
-              RSS soon
+            <a className="hover:text-foreground" href="https://linkedin.com/in/carlpeaslee" target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+            <a className="hover:text-foreground" href="https://x.com/carlpeaslee" target="_blank" rel="noopener noreferrer">
+              X
             </a>
           </div>
         </div>
