@@ -3,15 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "build": "react-router build",
-    "cf-typegen": "wrangler types",
-    "deploy": "node scripts/deploy.mjs",
-    "dev": "react-router dev",
-    "dev-static": "vite preview",
-    "typecheck": "npm run cf-typegen && react-router typegen && tsc -b",
-    "verify": "node scripts/verify.mjs"
-  },
+  "scripts": {},
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
     "@tailwindcss/typography": "^0.5.19",

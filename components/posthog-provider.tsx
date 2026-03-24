@@ -21,12 +21,17 @@ function PageViewTracker({ enabled }: { enabled: boolean }) {
   return null;
 }
 
+function getApiHost() {
+  if (typeof window === "undefined") return "https://us.i.posthog.com";
+  return window.location.hostname === "carlpeaslee.com"
+    ? "https://a.carlpeaslee.com"
+    : "https://us.i.posthog.com";
+}
+
 export function AnalyticsProvider({
-  apiHost,
   apiKey,
   children,
 }: {
-  apiHost: string;
   apiKey: string;
   children: ReactNode;
 }) {
@@ -41,14 +46,14 @@ export function AnalyticsProvider({
 
     if (!client.__loaded) {
       posthog.init(apiKey, {
-        api_host: apiHost,
+        api_host: getApiHost(),
         capture_pageleave: true,
         capture_pageview: false,
         person_profiles: "identified_only",
         __add_tracing_headers: [window.location.host, "localhost"],
       });
     }
-  }, [apiHost, apiKey, enabled]);
+  }, [apiKey, enabled]);
 
   if (!enabled) {
     return <>{children}</>;

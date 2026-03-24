@@ -4,17 +4,22 @@ default:
   @just --list
 
 dev:
-  npm run dev
+  npx react-router dev
 
 build:
-  npm run build
+  npx react-router build
 
 dev-static:
-  npm run build
-  npm run dev-static
+  npx react-router build && vite preview
 
 deploy env="preview":
-  npm run deploy -- {{env}}
+  node scripts/deploy.mjs {{env}}
+
+typecheck:
+  npx wrangler types && npx react-router typegen && npx tsc -b
 
 verify target="local":
   node scripts/verify.mjs {{target}}
+
+cf-typegen:
+  npx wrangler types

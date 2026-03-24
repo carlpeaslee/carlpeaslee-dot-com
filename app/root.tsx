@@ -18,8 +18,7 @@ import "./globals.css";
 export function loader() {
   return {
     analytics: {
-      apiHost: import.meta.env.VITE_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com",
-      apiKey: import.meta.env.VITE_PUBLIC_POSTHOG_KEY ?? "",
+      apiKey: "phc_PHgUVavTPvqIXerB7NNvO9EPB8MYbwdpYYHLixwFoyV",
     },
   };
 }
@@ -55,7 +54,7 @@ export default function App() {
   const { analytics } = useLoaderData<typeof loader>();
 
   return (
-    <AnalyticsProvider apiHost={analytics.apiHost} apiKey={analytics.apiKey}>
+    <AnalyticsProvider apiKey={analytics.apiKey}>
       <SiteShell>
         <Outlet />
       </SiteShell>

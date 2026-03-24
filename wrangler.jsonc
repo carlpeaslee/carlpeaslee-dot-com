@@ -4,14 +4,21 @@
   "compatibility_date": "2026-03-17",
   "main": "./workers/app.ts",
   "vars": {
-    "SITE_URL": "https://carlpeaslee.com"
+    "SITE_URL": "https://carlpeaslee.com",
   },
   "env": {
     "preview": {
       "name": "carlpeaslee-dot-com-preview",
       "vars": {
-        "SITE_URL": "https://preview.carlpeaslee.com"
-      }
-    }
-  }
+        "SITE_URL": "https://preview.carlpeaslee.com",
+      },
+    },
+    "production": {
+      "name": "carlpeaslee-dot-com",
+      "vars": {
+        "SITE_URL": "https://carlpeaslee.com",
+      },
+      "routes": [{ "pattern": "carlpeaslee.com", "custom_domain": true }],
+    },
+  },
 }
